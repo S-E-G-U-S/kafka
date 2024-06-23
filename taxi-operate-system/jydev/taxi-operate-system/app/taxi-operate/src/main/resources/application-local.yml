@@ -1,0 +1,16 @@
+logging:
+  level:
+    org:
+      apache:
+        kafka: DEBUG
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE  # 매개변수 바인딩 정보
+
+    springframework:
+      kafka: DEBUG
+
+

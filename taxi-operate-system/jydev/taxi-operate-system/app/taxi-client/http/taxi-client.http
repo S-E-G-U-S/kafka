@@ -1,0 +1,29 @@
+
+### User 생성
+POST http://localhost:8080/user
+Content-Type: application/json
+
+{
+  "name": "test-client5"
+}
+
+### 택시 Call
+POST http://localhost:8080/taxi-call
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "departures": 0,
+  "arrivals": 20
+}
+
+### 택시 상태 체크
+POST http://localhost:8080/taxi-call/19/status
+Content-Type: application/json
+
+
+### 택시 상태 조회
+GET http://localhost:8080/taxi-call/19
+
+### 택시 탑승 조회
+GET http://localhost:8080/taxi-ride/1

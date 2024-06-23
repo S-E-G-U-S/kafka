@@ -1,0 +1,38 @@
+spring:
+  kafka:
+    bootstrap-servers: localhost:29092
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      properties:
+        spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+  application:
+    name: taxi-client
+  jpa:
+    hibernate:
+      ddl-auto: validate
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+    open-in-view: false
+  datasource:
+    username: ${env.database-username}
+    password: ${env.database-password}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${env.database-host}/TAXI_OPERATE
+
+# server config
+server:
+  tomcat:
+    threads:
+      max: 50
+  port: 8080
+
+env:
+  database-username: ${DATABASE_USERNAME:}
+  database-password: ${DATABASE_PASSWORD:}
+  database-host: ${DATABASE_HOST:}

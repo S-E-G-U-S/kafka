@@ -1,0 +1,37 @@
+### 택시 운전자 등록
+POST http://localhost:8080/taxi-driver
+Content-Type: application/json
+
+{
+  "driverName": "김춘식",
+  "driverPhoneNumber": "010-1234-2353",
+  "vehicleNumber": "23구4503",
+  "initialLocation": 10
+}
+
+### TAXI WAITING CALL LIST 조회
+GET http://localhost:8080/waiting-call?driverId=1&locationRadius=10
+
+### Taxi Call Assign 요청
+POST http://localhost:8080/call/1/assign
+Content-Type: application/json
+
+{
+  "driverId": 1
+}
+
+### Taxi 승객 탑승
+POST http://localhost:8080/operation/1/start
+Content-Type: application/json
+
+{
+  "driverId": 1
+}
+
+### Taxi 목적지 도착
+POST http://localhost:8080/operation/1/complete
+Content-Type: application/json
+
+{
+  "driverId": 1
+}
