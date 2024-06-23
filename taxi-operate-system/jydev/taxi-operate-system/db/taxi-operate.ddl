@@ -1,0 +1,41 @@
+CREATE TABLE TAXI_CALL_ASSIGNMENT
+(
+    ID                         BIGINT AUTO_INCREMENT PRIMARY KEY,
+    CALL_ID                    BIGINT    NOT NULL UNIQUE,
+    DRIVER_ID                  BIGINT,
+    DEPARTURES                 INT       NOT NULL,
+    ARRIVALS                   INT       NOT NULL,
+    CREATION_TIME_UTC          TIMESTAMP NOT NULL,
+    LAST_MODIFICATION_TIME_UTC TIMESTAMP,
+
+    FOREIGN KEY (DRIVER_ID) REFERENCES TAXI_DRIVER (ID)
+);
+
+CREATE INDEX idx_taxi_call_assignment_creation_time_departures ON TAXI_CALL_ASSIGNMENT (CREATION_TIME_UTC ASC, DEPARTURES);
+
+CREATE TABLE TAXI_CALL_OPERATION
+(
+    ID                         BIGINT AUTO_INCREMENT PRIMARY KEY,
+    TAXI_CALL_ASSIGNMENT_ID    BIGINT                                           NOT NULL,
+    START_TIME                 TIMESTAMP,
+    ARRIVAL_TIME               TIMESTAMP,
+    DRIVER_ID                  BIGINT                                           NOT NULL,
+    STATUS                     ENUM ('NOT_STARTED', 'IN_PROGRESS', 'COMPLETED') NOT NULL,
+    CREATION_TIME_UTC          TIMESTAMP                                        NOT NULL,
+    LAST_MODIFICATION_TIME_UTC TIMESTAMP,
+
+    FOREIGN KEY (TAXI_CALL_ASSIGNMENT_ID) REFERENCES TAXI_CALL_ASSIGNMENT (ID)
+);
+
+CREATE INDEX idx_taxi_call_operation_driver_id_status ON TAXI_CALL_OPERATION (DRIVER_ID, STATUS);
+
+CREATE TABLE TAXI_DRIVER
+(
+    ID                         BIGINT AUTO_INCREMENT PRIMARY KEY,
+    DRIVER_NAME                VARCHAR(255) NOT NULL,
+    DRIVER_PHONE_NUMBER        VARCHAR(20)  NOT NULL,
+    VEHICLE_NUMBER             VARCHAR(50)  NOT NULL,
+    LOCATION                   INT          NOT NULL,
+    CREATION_TIME_UTC          TIMESTAMP    NOT NULL,
+    LAST_MODIFICATION_TIME_UTC TIMESTAMP
+);

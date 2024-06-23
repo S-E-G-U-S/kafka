@@ -1,0 +1,5 @@
+rootProject.name = 'taxi-operate-system'
+
+include("app:taxi-client")
+include("app:taxi-operate")
+include("core:jpa")
